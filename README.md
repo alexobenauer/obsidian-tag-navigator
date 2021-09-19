@@ -37,7 +37,7 @@ Here's how to try it out:
 If you want to use it with a sample vault, I've published the one from the demo video, and it already has the plugin installed.
 
 1. If you don't have it yet, download and install <a href="https://obsidian.md" target="_blank">Obsidian</a>.
-2. Download <a href="/assets/files/exp001/Sample_Vault.zip" target="_blank">the sample vault</a>, and unzip it.
+2. Download <a href="https://alexanderobenauer.com/assets/files/exp001/Sample_Vault.zip" target="_blank">the sample vault</a>, and unzip it.
 3. Open Obsidian, click the vault icon in the bottom left of Obsidian's window ("Open another vault"), then select the unzipped sample vault directory.
 4. Click "Turn off safe mode" if asked, and close the settings window if it's open.
 5. Open the command palette (press CMD + P), and search for the command "Cross-reference Navigation: Open Cross-references View". Press enter when it's highlighted.
