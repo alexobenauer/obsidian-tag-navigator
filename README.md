@@ -10,7 +10,7 @@ For more information, see <a href="https://alexanderobenauer.com/labnotes/exp001
 
 This plugin surfaces commonly cross-referenced tags as you browse through your things, and it makes great use of nested tags (e.g. `#status/inprogress`).
 
-[Here's a video showing it in action &raquo;](https://www.youtube.com/embed/sm5HXFNN8jE)
+[Here's a video showing it in action &raquo;](https://www.youtube.com/watch?v=sm5HXFNN8jE)
 
 With the tag structure I use in my personal notes vault, this plugin effectively gives me a handful of useful interfaces. Some examples: 
 
