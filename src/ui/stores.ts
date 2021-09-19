@@ -25,7 +25,7 @@ export async function createSettingsStore(
 
   function toggleFavoriteGroup(group: string) {
     update(settings => {
-      let favoriteGroups = settings.favoriteGroups
+      const favoriteGroups = settings.favoriteGroups
 
       const index = favoriteGroups.indexOf(group)
 
@@ -48,7 +48,7 @@ export async function createSettingsStore(
 
   function toggleFavoriteTag(tag: string) {
     update(settings => {
-      let favoriteTags = settings.favoriteTags
+      const favoriteTags = settings.favoriteTags
 
       const index = favoriteTags.indexOf(tag)
 
@@ -118,16 +118,16 @@ export function createTagMenuStore(
   const { subscribe, set, update } = writable<TagMenuState>(generateInitialTagMenuState());
 
   function selectTags(selectTags: string[]) {
-    let newState = generateInitialTagMenuState()
+    const newState = generateInitialTagMenuState()
     newState.selectedTags = selectTags
 
-    let groupCounts: { [group: string]: number } = {}
-    let tagCounts: { [group: string]: { [tag: string]: number } } = {}
+    const groupCounts: { [group: string]: number } = {}
+    const tagCounts: { [group: string]: { [tag: string]: number } } = {}
 
-    let allFiles = window.app.vault.getMarkdownFiles()
-    let allFileTags: {[fname: string]: string[]} = {}
+    const allFiles = window.app.vault.getMarkdownFiles()
+    const allFileTags: {[fname: string]: string[]} = {}
     allFiles.forEach(file => {
-      let fileTags = getAllTags(window.app.metadataCache.getFileCache(file))
+      const fileTags = getAllTags(window.app.metadataCache.getFileCache(file))
       allFileTags[file.name] = fileTags
       if (selectTags.every(t => fileTags.includes(t))) {
         newState.allMatchingFiles.push(file)
@@ -135,9 +135,9 @@ export function createTagMenuStore(
         fileTags.forEach(tag => {
           if (selectTags.includes(tag)) { return }
 
-          let parts = tagParts(tag)
-          let label = parts.label || ""
-          let title = parts.title
+          const parts = tagParts(tag)
+          const label = parts.label || ""
+          const title = parts.title
 
           if (!newState.toShow[label]) {
             newState.toShow[label] = {}
@@ -160,8 +160,8 @@ export function createTagMenuStore(
     // Generate groupsSorted
     newState.groupsSorted = Object.keys(newState.toShow).sort((a, b) => (groupCounts[b] + Object.keys(tagCounts[b]||{}).length) - (groupCounts[a] + Object.keys(tagCounts[a]||{}).length)) // tagCounts included to prioritize groups that have more columns
 
-    let settingsState = get(settingsStore)
-    let _favoriteGroups = settingsState.favoriteGroups.sort((a, b) => ((groupCounts[a]||0) + Object.keys(tagCounts[a]||{}).length) - ((groupCounts[b]||0)) + Object.keys(tagCounts[b]||{}).length)
+    const settingsState = get(settingsStore)
+    const _favoriteGroups = settingsState.favoriteGroups.sort((a, b) => ((groupCounts[a]||0) + Object.keys(tagCounts[a]||{}).length) - ((groupCounts[b]||0)) + Object.keys(tagCounts[b]||{}).length)
     _favoriteGroups.forEach(group => {
       const index = newState.groupsSorted.indexOf(group)
 
@@ -200,8 +200,8 @@ export function createTagMenuStore(
       newState.tagsSorted[group] = Object.keys(newState.toShow[group]).sort((a, b) => tagCounts[group][b] - tagCounts[group][a])
 
       Object.keys(newState.toShow[group]).forEach(tag => {
-        let files = newState.toShow[group][tag].files
-        let crossrefs: {[index: string]: number} = {}
+        const files = newState.toShow[group][tag].files
+        const crossrefs: {[index: string]: number} = {}
         files.forEach(file => {
           allFileTags[file.name].forEach(tag2 => {
             if (tag2 === tag) { return }
@@ -218,7 +218,7 @@ export function createTagMenuStore(
       newState.crossrefsSorted[group] = {}
       Object.keys(newState.toShow[group]).forEach(tag => {
         const crossrefs = newState.toShow[group][tag].crossrefs
-        let sorted = Object.keys(crossrefs).sort((a, b) => crossrefs[b] - crossrefs[a])
+        const sorted = Object.keys(crossrefs).sort((a, b) => crossrefs[b] - crossrefs[a])
 
         sorted.slice().reverse().forEach(tag => {
           if (settingsState.favoriteTags.find(ftag => tag === ftag) 
@@ -237,7 +237,7 @@ export function createTagMenuStore(
 
   function toggleExpandedGroup(group: string) {
     update(state => {
-      let expandedGroups = state.expandedGroups
+      const expandedGroups = state.expandedGroups
 
       const index = expandedGroups.indexOf(group)
 
@@ -255,7 +255,7 @@ export function createTagMenuStore(
     })
   }
 
-  let unsubscribe = settingsStore.subscribe(_ => {
+  const unsubscribe = settingsStore.subscribe(_ => {
     selectTags(get({subscribe}).selectedTags)
   })
   onDestroy(unsubscribe)
