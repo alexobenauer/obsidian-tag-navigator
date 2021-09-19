@@ -44,7 +44,7 @@
 
     <div class="hscroll">
       <div class="flex align-center">
-        <p class="small muted">Favorite groups:</p>
+        <p class="small muted label">Favorite groups:</p>
         <div class="spacer"></div>
 
         {#each $viewStore.groupsSorted as label}
@@ -55,7 +55,7 @@
       </div>
       <div class="spacer"></div>
       <div class="flex align-center">
-        <p class="small muted">Favorite tags:</p>
+        <p class="small muted label">Favorite tags:</p>
         <div class="spacer"></div>
 
         {#each $viewStore.tagsSorted["favorite tags"] || [] as tag}
@@ -148,6 +148,11 @@
 
   .small {
     font-size: 12px;
+  }
+
+  .label {
+    white-space: nowrap;
+    margin-right: 4px;
   }
 
   .flex {
