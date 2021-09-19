@@ -1,0 +1,10 @@
+{
+  "id": "cross-reference-navigation",
+  "name": "Cross-reference Navigation",
+  "description": "Cross-reference navigation through your tags",
+  "version": "0.2.0",
+  "author": "Alexander Obenauer",
+  "authorUrl": "https://alexanderobenauer.com",
+  "isDesktopOnly": false,
+  "minAppVersion": "0.12.12"
+}
