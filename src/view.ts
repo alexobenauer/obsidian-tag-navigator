@@ -29,7 +29,7 @@ export default class CRNView extends ItemView {
   }
 
   getEphemeralState(): any {
-    let state = get(this.tagMenuStore)
+    const state = get(this.tagMenuStore)
     
     return {
       selectedTags: state.selectedTags,
@@ -37,7 +37,7 @@ export default class CRNView extends ItemView {
     }
   }
 
-  setEphemeralState(state: any) {
+  setEphemeralState(state: any): void {
     if (state) {
       this.tagMenuStore.loadState(state.selectedTags, state.expandedGroups)
     }
