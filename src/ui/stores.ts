@@ -109,11 +109,12 @@ function generateInitialTagMenuState(): TagMenuState {
 export interface TagMenuStore extends Readable<TagMenuState> {
   selectTags(selectTags: string[]): void
   toggleExpandedGroup(group: string): void
+  destroy(): void
+  loadState(selectedTags: string[], expandedGroups: string[]): void
 }
 
 export function createTagMenuStore(
-  settingsStore: SettingsStore,
-  onDestroy: (fn: () => void) => void
+  settingsStore: SettingsStore
 ): TagMenuStore {
   const { subscribe, set, update } = writable<TagMenuState>(generateInitialTagMenuState());
 
@@ -255,10 +256,23 @@ export function createTagMenuStore(
     })
   }
 
+  function loadState(selectedTags: string[], expandedGroups: string[]) {
+    if (selectedTags) {
+      selectTags(selectedTags)
+    }
+
+    if (expandedGroups) {
+      update(state => ({
+        ...state,
+        expandedGroups
+      }))
+    }
+  }
+
   const unsubscribe = settingsStore.subscribe(_ => {
     selectTags(get({subscribe}).selectedTags)
   })
-  onDestroy(unsubscribe)
+  const destroy = unsubscribe
 
-  return { subscribe, selectTags, toggleExpandedGroup }
+  return { subscribe, destroy, loadState, selectTags, toggleExpandedGroup }
 }

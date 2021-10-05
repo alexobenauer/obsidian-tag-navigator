@@ -1,11 +1,10 @@
 <script lang="ts">
   import type { TFile } from "obsidian";
-  import { onDestroy } from "svelte";
-  import { createTagMenuStore, SettingsStore } from "./stores";
+  import type { SettingsStore, TagMenuStore } from "./stores";
   import TagTitle from "./TagTitle.svelte";
 
   export let settingsStore: SettingsStore
-  let viewStore = createTagMenuStore(settingsStore, onDestroy)
+  export let viewStore: TagMenuStore
 
   const columnWidth = 250
   const columnMargin = 20
