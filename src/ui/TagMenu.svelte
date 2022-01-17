@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { TFile } from "obsidian";
+  import { onMount } from "svelte";
   import type { SettingsStore, TagMenuStore } from "./stores";
   import TagTitle from "./TagTitle.svelte";
 
@@ -21,6 +22,11 @@
       : window.app.workspace.getUnpinnedLeaf();
     await leaf.openFile(file, { active : true, mode });
   }
+
+  onMount(() => {
+    // Ensures we've loaded everything when presented
+    viewStore.selectTags($viewStore.selectedTags)
+  })
 </script>
 
 <div bind:clientWidth={clientWidth}>
