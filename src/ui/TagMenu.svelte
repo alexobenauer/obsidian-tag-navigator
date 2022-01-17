@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { TFile } from "obsidian";
+  import { TFile, Keymap } from "obsidian";
   import { onMount } from "svelte";
   import type { SettingsStore, TagMenuStore } from "./stores";
   import TagTitle from "./TagTitle.svelte";
@@ -15,7 +15,7 @@
   $: contentWidth = columns * totalColumnWidth
 
   async function openFile(e: MouseEvent, file: TFile) {
-    let inNewSplit = e.metaKey
+    let inNewSplit = Keymap.isModEvent(e)
     const mode = (window.app.vault as any).getConfig("defaultViewMode");
     const leaf = inNewSplit
       ? window.app.workspace.splitActiveLeaf()
@@ -37,7 +37,7 @@
       
       {#each $viewStore.selectedTags as tag, index}
         <div> › </div>
-        <div class="link" on:click={e => e.metaKey ? viewStore.selectTags([tag]) : viewStore.selectTags($viewStore.selectedTags.slice(0, index + 1))}><TagTitle tag={tag} /></div>
+        <div class="link" on:click={e => Keymap.isModEvent(e) ? viewStore.selectTags([tag]) : viewStore.selectTags($viewStore.selectedTags.slice(0, index + 1))}><TagTitle tag={tag} /></div>
       {/each}
 
       <p class="muted small" style="margin-left: 10px; align-self: flex-end;">{$viewStore.allMatchingFiles.length} notes</p>
