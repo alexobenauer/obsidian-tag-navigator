@@ -2,7 +2,7 @@
   "id": "cross-reference-navigation",
   "name": "Cross-reference Navigation",
   "description": "Cross-reference navigation through your tags",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "author": "Alexander Obenauer",
   "authorUrl": "https://alexanderobenauer.com",
   "isDesktopOnly": false,
