@@ -31,7 +31,7 @@ If you want to try out this plugin, be aware: It is early, so I'd recommend usin
 Here's how to try it out:
 
 1. If you don't have it yet, download and install <a href="https://obsidian.md" target="_blank">Obsidian</a>.
-2. Download [the plugin (v0.5.0)](https://github.com/alexobenauer/obsidian-tag-navigator/archive/refs/tags/0.5.0.zip), and unzip it.
+2. Download [the plugin (v0.5.0)](https://github.com/alexobenauer/obsidian-tag-navigator/releases/download/0.5.0/tag-navigator.zip), and unzip it.
 3. Move the unzipped directory into your vault's `.obsidian/plugins` directory.
 4. In Obsidian's settings window, open "Community plugins," hit the refresh button on "Installed plugins," and enable "Cross-reference Navigation."
 5. Open the command palette (press CMD + P), and search for the command "Cross-reference Navigation: Open Cross-references View". Press enter when it's highlighted.
