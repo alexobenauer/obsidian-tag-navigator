@@ -1,4 +1,4 @@
-# Tag Navigator plugin for Obsidian
+# Tag Navigator (plugin for Obsidian)
 
 *Previously: "Cross-reference Navigation"*
 
@@ -31,17 +31,9 @@ If you want to try out this plugin, be aware: It is early, so I'd recommend usin
 Here's how to try it out:
 
 1. If you don't have it yet, download and install <a href="https://obsidian.md" target="_blank">Obsidian</a>.
-2. Download [the plugin (v0.4.0)](https://github.com/alexobenauer/Cross-reference-Navigation-for-Obsidian/releases/download/0.4.0/plugin_cross-reference-navigation.zip), and unzip it.
+2. Download [the plugin (v0.5.0)](https://github.com/alexobenauer/obsidian-tag-navigator/archive/refs/tags/0.5.0.zip), and unzip it.
 3. Move the unzipped directory into your vault's `.obsidian/plugins` directory.
 4. In Obsidian's settings window, open "Community plugins," hit the refresh button on "Installed plugins," and enable "Cross-reference Navigation."
-5. Open the command palette (press CMD + P), and search for the command "Cross-reference Navigation: Open Cross-references View". Press enter when it's highlighted.
-
-If you want to use it with a sample vault, I've published the one from the demo video, and it already has the plugin installed.
-
-1. If you don't have it yet, download and install <a href="https://obsidian.md" target="_blank">Obsidian</a>.
-2. Download <a href="https://alexanderobenauer.com/assets/files/exp001/Sample_Vault.zip" target="_blank">the sample vault</a>, and unzip it.
-3. Open Obsidian, click the vault icon in the bottom left of Obsidian's window ("Open another vault"), then select the unzipped sample vault directory.
-4. Click "Turn off safe mode" if asked, and close the settings window if it's open.
 5. Open the command palette (press CMD + P), and search for the command "Cross-reference Navigation: Open Cross-references View". Press enter when it's highlighted.
 
 If you enjoy this experiment, you can see the rest of my work at [https://alexanderobenauer.com/](https://alexanderobenauer.com/).
