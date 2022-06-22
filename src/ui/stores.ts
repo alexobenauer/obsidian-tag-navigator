@@ -3,16 +3,22 @@ import { get, Readable, writable } from "svelte/store";
 import { tagParts } from "./utils";
 
 export interface StoredSettings {
+  excludedGroups: string[],
+  excludedTags: string[],
   favoriteGroups: string[],
   favoriteTags: string[]
 }
 
 export const defaultSettings: StoredSettings = {
-  favoriteGroups: ["status", "activity"],
+  excludedGroups: [],
+  excludedTags: [],
+  favoriteGroups: ["status", "activity", "type"],
   favoriteTags: []
 }
 
 export interface SettingsStore extends Readable<StoredSettings> {
+  toggleExcludedGroup(group: string): void
+  toggleExcludedTag(tag: string): void
   toggleFavoriteGroup(group: string): void
   toggleFavoriteTag(tag: string): void
 }
@@ -22,6 +28,52 @@ export async function createSettingsStore(
 ): Promise<SettingsStore> {
   const initialData = await plugin.loadData()
   const { subscribe, update } = writable<StoredSettings>({ ...defaultSettings, ...initialData });
+
+  function toggleExcludedGroup(group: string) {
+    update(settings => {
+      const excludedGroups = settings.excludedGroups
+
+      const index = excludedGroups.indexOf(group)
+
+      if (index > -1) {
+        excludedGroups.splice(index, 1)
+      }
+      else {
+        excludedGroups.push(group)
+      }
+
+      const newState = {
+        ...settings,
+        excludedGroups
+      }
+
+      plugin.saveData(newState)
+      return newState
+    })
+  }
+
+  function toggleExcludedTag(tag: string) {
+    update(settings => {
+      const excludedTags = settings.excludedTags
+
+      const index = excludedTags.indexOf(tag)
+
+      if (index > -1) {
+        excludedTags.splice(index, 1)
+      }
+      else {
+        excludedTags.push(tag)
+      }
+
+      const newState = {
+        ...settings,
+        excludedTags
+      }
+
+      plugin.saveData(newState)
+      return newState
+    })
+  }
 
   function toggleFavoriteGroup(group: string) {
     update(settings => {
@@ -71,12 +123,16 @@ export async function createSettingsStore(
   
 	return {
 		subscribe,
+    toggleExcludedGroup,
+    toggleExcludedTag,
     toggleFavoriteGroup,
     toggleFavoriteTag
 	};
 }
 
 export interface TagMenuState {
+  allGroups: string[],
+  allTags: string[],
   toShow: {
     [group: string]: {
       [tag: string]: {
@@ -96,6 +152,8 @@ export interface TagMenuState {
 
 function generateInitialTagMenuState(): TagMenuState {
   return {
+    allGroups: [],
+    allTags: [],
     toShow: {},
     groupsSorted: [],
     tagsSorted: {},
@@ -125,6 +183,8 @@ export function createTagMenuStore(
     const groupCounts: { [group: string]: number } = {}
     const tagCounts: { [group: string]: { [tag: string]: number } } = {}
 
+    const settingsState = get(settingsStore)
+
     const allFiles = window.app.vault.getMarkdownFiles()
     const allFileTags: {[fname: string]: string[]} = {}
     allFiles.forEach(file => {
@@ -139,6 +199,17 @@ export function createTagMenuStore(
           const parts = tagParts(tag)
           const label = parts.label || ""
           const title = parts.title
+
+          if (label.length > 0 && !newState.allGroups.includes(label)) {
+            newState.allGroups.push(label)
+          }
+
+          if (label.length < 1 && !newState.allTags.includes(tag)) {
+            newState.allTags.push(tag)
+          }
+
+          if (settingsState.excludedGroups.includes(label)) { return }
+          if (settingsState.excludedTags.includes(tag)) { return }
 
           if (!newState.toShow[label]) {
             newState.toShow[label] = {}
@@ -158,10 +229,12 @@ export function createTagMenuStore(
       }
     })
 
+    newState.allGroups.sort()
+    newState.allTags.sort()
+
     // Generate groupsSorted
     newState.groupsSorted = Object.keys(newState.toShow).sort((a, b) => (groupCounts[b] + Object.keys(tagCounts[b]||{}).length) - (groupCounts[a] + Object.keys(tagCounts[a]||{}).length)) // tagCounts included to prioritize groups that have more columns
 
-    const settingsState = get(settingsStore)
     const _favoriteGroups = settingsState.favoriteGroups.sort((a, b) => ((groupCounts[a]||0) + Object.keys(tagCounts[a]||{}).length) - ((groupCounts[b]||0)) + Object.keys(tagCounts[b]||{}).length)
     _favoriteGroups.forEach(group => {
       const index = newState.groupsSorted.indexOf(group)

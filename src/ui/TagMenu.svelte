@@ -3,6 +3,7 @@
   import { onMount } from "svelte";
   import type { SettingsStore, TagMenuStore } from "./stores";
   import TagTitle from "./TagTitle.svelte";
+  import Star from "./Star.svelte";
 
   export let settingsStore: SettingsStore
   export let viewStore: TagMenuStore
@@ -49,25 +50,30 @@
 
     <div class="hscroll">
       <div class="flex align-center">
-        <p class="small muted label">Favorite groups:</p>
+        <p class="small muted label">Groups:</p>
         <div class="spacer"></div>
 
-        {#each $viewStore.groupsSorted as label}
-          {#if label !== "" && label !== "favorite tags"}
-            <div class={$settingsStore.favoriteGroups.includes(label) ? "btn selected" : "btn"} on:click={_ => settingsStore.toggleFavoriteGroup(label)}>{label}</div>
-          {/if}
+        {#each $viewStore.allGroups as label}
+          <div style="display: flex; align-items: center;" class={$settingsStore.excludedGroups.includes(label) ? "btn muted" : "btn"} on:click={_ => settingsStore.toggleExcludedGroup(label)}>
+            {label}
+            <div class={$settingsStore.favoriteGroups.includes(label) ? "star" : "star slideout"} on:click={e => { e.stopPropagation(); settingsStore.toggleFavoriteGroup(label); }}>
+              <Star filled={$settingsStore.favoriteGroups.includes(label)} />
+            </div>
+          </div>
         {/each}
       </div>
       <div class="spacer"></div>
       <div class="flex align-center">
-        <p class="small muted label">Favorite tags:</p>
+        <p class="small muted label">Tags:</p>
         <div class="spacer"></div>
 
-        {#each $viewStore.tagsSorted["favorite tags"] || [] as tag}
-          <div class="btn selected" on:click={_ => settingsStore.toggleFavoriteTag(tag)}>{tag}</div>
-        {/each}
-        {#each $viewStore.tagsSorted[""] || [] as tag}
-          <div class="btn" on:click={_ => settingsStore.toggleFavoriteTag(tag)}>{tag}</div>
+        {#each $viewStore.allTags as label}
+          <div style="display: flex; align-items: center;" class={$settingsStore.excludedTags.includes(label) ? "btn muted" : "btn"} on:click={_ => settingsStore.toggleExcludedTag(label)}>
+            {label}
+            <div class={$settingsStore.favoriteTags.includes(label) ? "star" : "star slideout"} on:click={e => { e.stopPropagation(); settingsStore.toggleFavoriteTag(label); }}>
+              <Star filled={$settingsStore.favoriteTags.includes(label)} />
+            </div>
+          </div>
         {/each}
       </div>
     </div>
@@ -261,9 +267,35 @@
     transition: all 0.2s ease;
   }
 
-  .btn:hover,
-  .btn.selected {
+  .btn.muted {
+    border: 1px solid var(--text-on-accent);
+    opacity: 0.25;
+  }
+
+  .btn:hover {
     background: var(--interactive-accent);
     color: var(--text-on-accent);
+  }
+
+  .star {
+    width: 14px;
+    height: 14px;
+    margin-left: 5px;
+  }
+
+  .star.slideout {
+    position: relative;
+    left: -19px;
+    margin-right: -19px;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.2s ease;
+  }
+
+  .btn:hover .star.slideout {
+    opacity: 1;
+    pointer-events: all;
+    left: 0px;
+    margin-right: 0;
   }
 </style>
