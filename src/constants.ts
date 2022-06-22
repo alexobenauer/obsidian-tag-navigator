@@ -1,1 +1,1 @@
-export const VIEW_TYPE = "cross-reference-navigation";
+export const VIEW_TYPE = "tag-navigator";

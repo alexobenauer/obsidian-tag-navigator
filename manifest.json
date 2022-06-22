@@ -1,8 +1,8 @@
 {
-  "id": "cross-reference-navigation",
-  "name": "Cross-reference Navigation",
+  "id": "tag-navigator",
+  "name": "Tag Navigator",
   "description": "Cross-reference navigation through your tags",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "author": "Alexander Obenauer",
   "authorUrl": "https://alexanderobenauer.com",
   "isDesktopOnly": false,

@@ -34,7 +34,7 @@ export default class CrossNavPlugin extends Plugin {
 
     this.addCommand({
       id: "show-refnav-view",
-      name: "Open Cross-references View",
+      name: "Open Tag Navigator",
       callback: () => {
         const leaf = this.app.workspace.activeLeaf
         leaf.open(new CRNView(leaf, this.settingsStore, this.tagMenuStore))

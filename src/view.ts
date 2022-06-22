@@ -21,7 +21,7 @@ export default class CRNView extends ItemView {
   }
 
   getDisplayText(): string {
-    return "Cross-reference Navigation";
+    return "Tag Navigator";
   }
 
   getIcon(): string {

@@ -1,4 +1,6 @@
-# Cross-reference Navigation plugin for Obsidian
+# Tag Navigator plugin for Obsidian
+
+*Previously: "Cross-reference Navigation"*
 
 This is a plugin for [Obsidian](https://obsidian.md/) that lets you navigate through your notes using their tags.
 
