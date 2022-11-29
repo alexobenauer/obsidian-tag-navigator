@@ -27,24 +27,20 @@ export default class CrossNavPlugin extends Plugin {
 
   async onload(): Promise<void> {
     this.settingsStore = await createSettingsStore(this)
-    this.tagMenuStore = createTagMenuStore(this.settingsStore)
 
     this.registerView(
       VIEW_TYPE,
-      (leaf: WorkspaceLeaf) => (this.view = new CRNView(leaf, this.settingsStore, this.tagMenuStore))
+      (leaf: WorkspaceLeaf) => (this.view = new CRNView(leaf, this.settingsStore, createTagMenuStore(this.settingsStore)))
     )
 
     this.addCommand({
       id: "show-refnav-view",
       name: "Open Tag Navigator",
       callback: () => {
-        const new_instance = {
-          settingsStore: this.settingsStore,
-          tagMenuStore: createTagMenuStore(this.settingsStore)
-        };
-
         const leaf = this.app.workspace.getLeaf(true);
-        leaf.open(new CRNView(leaf, new_instance.settingsStore, new_instance.tagMenuStore));
+        leaf.setViewState({
+          type: VIEW_TYPE,
+        });
         this.app.workspace.setActiveLeaf(leaf, { focus: true });
       },
     })
