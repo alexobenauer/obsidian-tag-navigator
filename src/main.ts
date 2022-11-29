@@ -21,7 +21,7 @@ export default class CrossNavPlugin extends Plugin {
     this.app.workspace
       .getLeavesOfType(VIEW_TYPE)
       .forEach((leaf) => leaf.detach());
-    
+
     this.tagMenuStore.destroy()
   }
 
@@ -38,8 +38,14 @@ export default class CrossNavPlugin extends Plugin {
       id: "show-refnav-view",
       name: "Open Tag Navigator",
       callback: () => {
-        const leaf = this.app.workspace.activeLeaf
-        leaf.open(new CRNView(leaf, this.settingsStore, this.tagMenuStore))
+        const new_instance = {
+          settingsStore: this.settingsStore,
+          tagMenuStore: createTagMenuStore(this.settingsStore)
+        };
+
+        const leaf = this.app.workspace.getLeaf(true);
+        leaf.open(new CRNView(leaf, new_instance.settingsStore, new_instance.tagMenuStore));
+        this.app.workspace.setActiveLeaf(leaf, { focus: true });
       },
     })
   }
