@@ -1,6 +1,8 @@
 import { getAllTags, Plugin, TFile } from "obsidian";
-import { get, Readable, writable } from "svelte/store";
+import { get, writable } from "svelte/store";
 import { tagParts } from "./utils";
+
+import type { Readable } from "svelte/store";
 
 export interface StoredSettings {
   excludedGroups: string[],

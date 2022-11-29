@@ -2,7 +2,9 @@ import { App, Plugin, WorkspaceLeaf } from "obsidian"
 
 import { VIEW_TYPE } from "./constants"
 import CRNView from "./view"
-import { createSettingsStore, createTagMenuStore, SettingsStore, TagMenuStore } from "./ui/stores"
+import { createSettingsStore, createTagMenuStore } from "./ui/stores"
+
+import type { SettingsStore, TagMenuStore } from "./ui/stores"
 
 declare global {
   interface Window {
