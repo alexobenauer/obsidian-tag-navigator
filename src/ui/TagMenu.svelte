@@ -16,12 +16,11 @@
   $: contentWidth = columns * totalColumnWidth
 
   async function openFile(e: MouseEvent, file: TFile) {
-    let inNewSplit = Keymap.isModEvent(e)
-    const mode = (window.app.vault as any).getConfig("defaultViewMode");
+    let inNewSplit = Keymap.isModEvent(e);
     const leaf = inNewSplit
-      ? window.app.workspace.splitActiveLeaf()
-      : window.app.workspace.getUnpinnedLeaf();
-    await leaf.openFile(file, { active : true, mode });
+      ? window.app.workspace.getLeaf(true)
+      : window.app.workspace.getLeaf(false);
+    await leaf.openFile(file, { active: true });
   }
 
   onMount(() => {
