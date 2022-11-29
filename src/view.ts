@@ -68,10 +68,6 @@ export default class CRNView extends ItemView {
       this.unsubscribe()
     }
 
-    this.unsubscribe = this.tagMenuStore.subscribe(_ => {
-      this.app.workspace.requestSaveHistory()
-    })
-
     return Promise.resolve()
   }  
 }
