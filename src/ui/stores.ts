@@ -122,14 +122,14 @@ export async function createSettingsStore(
       return newState
     })
   }
-  
-	return {
-		subscribe,
+
+  return {
+    subscribe,
     toggleExcludedGroup,
     toggleExcludedTag,
     toggleFavoriteGroup,
     toggleFavoriteTag
-	};
+  };
 }
 
 export interface TagMenuState {
@@ -188,7 +188,7 @@ export function createTagMenuStore(
     const settingsState = get(settingsStore)
 
     const allFiles = window.app.vault.getMarkdownFiles()
-    const allFileTags: {[fname: string]: string[]} = {}
+    const allFileTags: { [fname: string]: string[] } = {}
     allFiles.forEach(file => {
       const fileTags = getAllTags(window.app.metadataCache.getFileCache(file))
       allFileTags[file.name] = fileTags
@@ -235,14 +235,14 @@ export function createTagMenuStore(
     newState.allTags.sort()
 
     // Generate groupsSorted
-    newState.groupsSorted = Object.keys(newState.toShow).sort((a, b) => (groupCounts[b] + Object.keys(tagCounts[b]||{}).length) - (groupCounts[a] + Object.keys(tagCounts[a]||{}).length)) // tagCounts included to prioritize groups that have more columns
+    newState.groupsSorted = Object.keys(newState.toShow).sort((a, b) => (groupCounts[b] + Object.keys(tagCounts[b] || {}).length) - (groupCounts[a] + Object.keys(tagCounts[a] || {}).length)) // tagCounts included to prioritize groups that have more columns
 
-    const _favoriteGroups = settingsState.favoriteGroups.sort((a, b) => ((groupCounts[a]||0) + Object.keys(tagCounts[a]||{}).length) - ((groupCounts[b]||0)) + Object.keys(tagCounts[b]||{}).length)
+    const _favoriteGroups = settingsState.favoriteGroups.sort((a, b) => ((groupCounts[a] || 0) + Object.keys(tagCounts[a] || {}).length) - ((groupCounts[b] || 0)) + Object.keys(tagCounts[b] || {}).length)
     _favoriteGroups.forEach(group => {
       const index = newState.groupsSorted.indexOf(group)
 
       if (index > -1) {
-        newState.groupsSorted.splice(index,1);
+        newState.groupsSorted.splice(index, 1);
         newState.groupsSorted.unshift(group);
       }
     })
@@ -250,7 +250,7 @@ export function createTagMenuStore(
     // Put list of all ungrouped tags at bottom, it will always be expanded
     const index = newState.groupsSorted.indexOf("")
     if (index > -1) {
-      newState.groupsSorted.splice(index,1);
+      newState.groupsSorted.splice(index, 1);
       newState.groupsSorted.push("");
     }
 
@@ -277,7 +277,7 @@ export function createTagMenuStore(
 
       Object.keys(newState.toShow[group]).forEach(tag => {
         const files = newState.toShow[group][tag].files
-        const crossrefs: {[index: string]: number} = {}
+        const crossrefs: { [index: string]: number } = {}
         files.forEach(file => {
           allFileTags[file.name].forEach(tag2 => {
             if (tag2 === tag) { return }
@@ -297,9 +297,9 @@ export function createTagMenuStore(
         const sorted = Object.keys(crossrefs).sort((a, b) => crossrefs[b] - crossrefs[a])
 
         sorted.slice().reverse().forEach(tag => {
-          if (settingsState.favoriteTags.find(ftag => tag === ftag) 
-          || settingsState.favoriteGroups.find(fgroup => tag.startsWith("#" + fgroup))) {
-            sorted.splice(sorted.indexOf(tag),1);
+          if (settingsState.favoriteTags.find(ftag => tag === ftag)
+            || settingsState.favoriteGroups.find(fgroup => tag.startsWith("#" + fgroup))) {
+            sorted.splice(sorted.indexOf(tag), 1);
             sorted.unshift(tag);
           }
         })
@@ -345,7 +345,7 @@ export function createTagMenuStore(
   }
 
   const unsubscribe = settingsStore.subscribe(_ => {
-    selectTags(get({subscribe}).selectedTags)
+    selectTags(get({ subscribe }).selectedTags)
   })
   const destroy = unsubscribe
 
