@@ -41,7 +41,7 @@
         <div
           class="link"
           on:click={(e) =>
-            Keymap.isModEvent(e)
+            Keymap.isModEvent(e) === "tab"
               ? viewStore.selectTags([tag])
               : viewStore.selectTags(
                   $viewStore.selectedTags.slice(0, index + 1)
