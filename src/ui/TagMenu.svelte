@@ -225,7 +225,7 @@
   }
 
   .link:hover {
-    background: var(--color-accent); /* color-accent seems to match the rest of the ui a little better for me personally >.< */
+    background: var(--interactive-accent);
     color: var(--text-on-accent);
 
     padding-left: 4px;
@@ -278,7 +278,7 @@
   }
 
   .btn:hover {
-    background: var(--color-accent);
+    background: var(--interactive-accent);
     color: var(--text-on-accent);
   }
 
