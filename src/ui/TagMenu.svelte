@@ -265,7 +265,7 @@
     padding: 4px 10px;
     border-radius: 8px; /* large/long tags look really weird with circle pills, changed it to be a lil round */
     border: none; /* personal taste with below bg color */
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.1); /* i have this set to a variable in my theme, background-secondary could be an option */
     font-weight: bold;
     font-size: 12px;
     margin: 2px 2px 2px 2px;
