@@ -177,6 +177,11 @@
 
   .align-center {
     align-items: center;
+    margin: 8px;
+    overflow: visible;
+    justify-content: flex-start;
+    display: flex;
+    flex-wrap: wrap; /* have tags wrap instead of scroll, so long tags don't break to a new line */
   }
 
   .flex-wrap {
@@ -258,13 +263,13 @@
   .btn {
     cursor: pointer;
     padding: 4px 10px;
-    border-radius: 100px;
-    border: 1px solid var(--interactive-accent);
+    border-radius: 8px; /* large/long tags look really weird with circle pills, changed it to be a lil round */
+    border: none; /* personal taste with below bg color */
+    background: rgba(0, 0, 0, 0.1); /* i have this set to a variable in my theme, background-secondary could be an option */
     font-weight: bold;
     font-size: 12px;
-    margin-right: 10px;
-
-    transition: all 0.2s ease;
+    margin: 2px 2px 2px 2px;
+    transition: all 0.2s cubic-bezier(0.250, 0.460, 0.450, 0.940);
   }
 
   .btn.muted {
