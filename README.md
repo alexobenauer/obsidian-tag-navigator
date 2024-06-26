@@ -1,7 +1,5 @@
 # Tag Navigator (plugin for Obsidian)
 
-*Previously: "Cross-reference Navigation"*
-
 This is a plugin for [Obsidian](https://obsidian.md/) that lets you navigate through your notes using their tags.
 
 It's a live demonstration of a <a href="https://alexanderobenauer.com/labnotes/015/" target="_blank">concept laid out in my lab notes</a>.
